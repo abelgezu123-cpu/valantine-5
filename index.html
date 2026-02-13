@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine for Jedidiah Solomon 💖</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    font-weight: normal;
+    background-color: pink;
+    overflow: hidden;
+  }
+
+  #question, #loveMsg {
+    color: white;
+    font-size: 3em;
+    text-shadow: 2px 2px 8px #ff77aa;
+    margin-bottom: 40px;
+    white-space: pre-line; /* for line breaks */
+    position: relative;
+    z-index: 2;
+    line-height: 1.5em; /* spacing for vertical effect */
+  }
+
+  #loveMsg {
+    display: none;
+    font-size: 2.5em;
+    color: #fff5f5;
+    text-shadow: 1px 1px 10px #ff99cc;
+  }
+
+  button {
+    font-size: 22px;
+    padding: 12px 30px;
+    margin: 10px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.8s ease;
+    background: #ff5a7a;
+    color: white;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 2;
+  }
+
+  #flowers, #hearts {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .flower, .heart {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    animation: fall linear infinite;
+  }
+
+  .heart {
+    width: 40px;
+    height: 40px;
+    background-image: url('https://cdn-icons-png.flaticon.com/512/833/833472.png');
+  }
+
+  @keyframes fall {
+    0% { transform: translateY(-50px) rotate(0deg); opacity: 1;}
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0;}
+  }
+</style>
+</head>
+<body>
+
+<audio autoplay loop>
+  <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mpeg">
+</audio>
+
+<div id="question"></div>
+<div id="loveMsg">I love you so much, my love 💕</div>
+<button id="yes">Yes</button>
+<button id="no">No</button>
+
+<div id="flowers"></div>
+<div id="hearts"></div>
+
+<script>
+const questionText = "W\ni\nl\nl\n \ny\no\nu\n \nb\ne\n \nm\ny\n \nV\na\nl\ne\nn\nt\ni\nn\ne\n,\n \nJ\ne\nd\ni\nd\i\ah\n \nS\o\l\o\m\o\nn\n?\n💖";
+const questionDiv = document.getElementById('question');
+let i = 0;
+
+function typeQuestion() {
+  if (i < questionText.length) {
+    questionDiv.textContent += questionText[i];
+    i++;
+    setTimeout(typeQuestion, 150); // speed of vertical letters
+  }
+}
+
+typeQuestion();
+
+// Buttons and magical effects
+const noBtn = document.getElementById('no');
+const yesBtn = document.getElementById('yes');
+const flowersDiv = document.getElementById('flowers');
+const heartsDiv = document.getElementById('hearts');
+const loveMsg = document.getElementById('loveMsg');
+
+const flowerColors = [
+  'https://cdn-icons-png.flaticon.com/512/616/616408.png',
+  'https://cdn-icons-png.flaticon.com/512/616/616410.png',
+  'https://cdn-icons-png.flaticon.com/512/616/616411.png',
+];
+
+// Smooth No button movement
+noBtn.addEventListener('mouseenter', () => {
+  const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+  const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+  noBtn.style.position = 'absolute';
+  noBtn.style.left = x + 'px';
+  noBtn.style.top = y + 'px';
+});
+
+// Flower creation
+function createFlower() {
+  const flower = document.createElement('div');
+  flower.classList.add('flower');
+  flower.style.left = Math.random() * window.innerWidth + 'px';
+  flower.style.backgroundImage = `url('${flowerColors[Math.floor(Math.random() * flowerColors.length)]}')`;
+  flower.style.animationDuration = (Math.random() * 3 + 2) + 's';
+  flowersDiv.appendChild(flower);
+  setTimeout(() => flower.remove(), 5000);
+}
+
+// Heart creation
+function createHeart() {
+  const heart = document.createElement('div');
+  heart.classList.add('heart');
+  heart.style.left = Math.random() * window.innerWidth + 'px';
+  heart.style.animationDuration = (Math.random() * 2 + 2) + 's';
+  heartsDiv.appendChild(heart);
+  setTimeout(() => heart.remove(), 5000);
+}
+
+// Continuous flowers
+setInterval(createFlower, 300);
+
+// Yes button magic
+yesBtn.addEventListener('click', () => {
+  for (let i = 0; i < 50; i++) setTimeout(createFlower, i * 50);
+  for (let i = 0; i < 30; i++) setTimeout(createHeart, i * 100);
+  setTimeout(() => loveMsg.style.display = 'block', 1000);
+});
+</script>
+</body>
+</html>
